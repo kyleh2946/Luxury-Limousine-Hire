@@ -1,5 +1,4 @@
 const { app } = require("@azure/functions");
-const sgMail = require("@sendgrid/mail");
 
 app.http("contact", {
   methods: ["POST"],
@@ -43,22 +42,33 @@ app.http("contact", {
         };
       }
 
-      sgMail.setApiKey(apiKey);
-
-      const msg = {
-        to: mailTo,
-        from: mailFrom,
-        replyTo: email,
-        subject: `New enquiry from ${name.trim()}`,
-        text: `Name: ${name.trim()}\nEmail: ${email.trim()}\nMessage:\n${message.trim()}`,
-        html: `<h2>New Contact Enquiry</h2>
+      const response = await fetch("https://api.smtp2go.com/v3/email/send", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          api_key: apiKey,
+          to: [mailTo],
+          sender: mailFrom,
+          reply_to_address: email,
+          subject: `New enquiry from ${name.trim()}`,
+          text_body: `Name: ${name.trim()}\nEmail: ${email.trim()}\nMessage:\n${message.trim()}`,
+          html_body: `<h2>New Contact Enquiry</h2>
 <p><strong>Name:</strong> ${name.trim()}</p>
 <p><strong>Email:</strong> ${email.trim()}</p>
 <p><strong>Message:</strong></p>
 <p>${message.trim().replace(/\n/g, "<br>")}</p>`,
-      };
+        }),
+      });
 
-      await sgMail.send(msg);
+      const result = await response.json();
+
+      if (!response.ok || result.data?.error) {
+        context.error("SMTP2GO error:", JSON.stringify(result));
+        return {
+          status: 500,
+          jsonBody: { success: false, error: "Failed to send message. Please try again later." },
+        };
+      }
 
       return {
         status: 200,
