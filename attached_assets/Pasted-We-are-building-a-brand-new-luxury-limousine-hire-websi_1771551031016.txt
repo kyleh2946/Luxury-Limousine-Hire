@@ -1,0 +1,172 @@
+We are building a brand-new luxury limousine hire website from scratch. The end result must be elegant, high-end, luxurious, professional, ultra smooth, and extremely fast. SEO must be strong from day one. All buttons, links, and pages must work perfectly. We will deploy on Vercel (not Replit).
+
+STACK (MANDATORY)
+- Next.js (latest stable) App Router
+- TypeScript
+- Tailwind CSS
+- shadcn/ui (Radix-based components)
+- next/image for all images
+- next/font for fonts
+- No Express server. No wouter. No Vite SPA. This must be Vercel-ready.
+
+SITE STRUCTURE / ROUTES (MANDATORY)
+Create these routes:
+1) / (Home)
+2) /services (Services overview grid – must appear immediately on this page, above the fold if possible)
+3) /services/[id] (Service detail pages for each service; statically generated)
+4) /fleet (Fleet page with vehicle cards)
+5) /book (Booking page – LimoAnywhere widget)
+6) /contact (Enquiry page with form)
+7) not-found (404)
+8) /sitemap.xml
+9) /robots.txt
+
+CONVERSION FLOW (IMPORTANT)
+- Primary CTA everywhere: “Book Now” → routes to /book
+- Secondary CTA (visible but not competing): “Enquire / Get a Quote” → routes to /contact
+- Keep an enquiry form on the site. Some customers (corporate, events) will prefer enquiry over immediate booking.
+- Every service detail page must have BOTH buttons:
+  - Book Now (primary)
+  - Enquire / Get a Quote (secondary)
+- Navbar should include Book Now and Enquire.
+- Footer should include both.
+
+SERVICES (MUST MATCH THIS LIST + FEEL)
+Services list (must be visible straight away on /services and also featured on home):
+- Executive
+- Wedding Car Hire
+- Parties & Nights Out
+- Airport Transfers
+- Cruise Ship Transfers
+- Formal Car Hire
+
+Design the Services grid like the screenshot reference:
+- Dark navy/charcoal background
+- Luxury serif headline
+- Gold accents
+- Six cards in a 3x2 grid on desktop, stacked nicely on mobile
+- Each card has:
+  - Icon in a gold circle
+  - Service name
+  - Short description (luxury tone)
+  - “Learn More” link → goes to /services/[id]
+  - Also include a small “Book Now” link/button on the card OR make the whole card have a visible Book Now action (but do not clutter)
+
+PAGES (CONTENT + UI REQUIREMENTS)
+HOME (/)
+- Hero section: luxury headline + short subheadline + primary “Book Now” + secondary “Enquire”
+- Trust section: licensed/insured, professional chauffeurs, punctual, premium vehicles (keep copy classy)
+- Featured services section (same six services)
+- Featured fleet preview (3 vehicles)
+- Testimonials section (3–6)
+- FAQ section (5–8)
+- Footer with contact details + quick links
+
+SERVICES OVERVIEW (/services)
+- Must show the six service cards immediately.
+- Add a short intro block above the grid (luxury tone, benefits, service area).
+
+SERVICE DETAIL (/services/[id])
+- Must be statically generated (generateStaticParams)
+- Must include:
+  - Strong H1 title
+  - Intro paragraph
+  - “What’s Included” bullet list
+  - “Perfect For” bullet list
+  - FAQ accordion
+  - Primary Book Now button + secondary Enquire button (prominent)
+  - Internal links to other services
+
+FLEET (/fleet)
+- Vehicle cards with:
+  - Name, passengers, features, luggage capacity, luxury tone copy
+  - Primary “Book Now” button on each card
+  - Optional “Enquire” link
+- Use optimised images (placeholders are fine, but the system must support real images)
+
+CONTACT (/contact)
+- A premium enquiry form (NOT just a basic ugly form):
+  Fields:
+  - Name
+  - Email
+  - Phone
+  - Pickup suburb / location
+  - Drop-off suburb / location
+  - Date
+  - Time
+  - Service type (dropdown of the six services)
+  - Passengers
+  - Message
+- After submit: show a success state (no backend needed). If email delivery isn’t set up, store nothing but show clear message: “We’ll contact you shortly.”
+- Also show contact details and service area copy.
+
+BOOKING PAGE (/book) — LIMOANYWHERE WIDGET (MUST BE IMPLEMENTED EXACTLY)
+We were provided this embed code:
+<a href="https://book.mylimobiz.com/v4/dcetrans" data-ores-widget="website" data-ores-alias="dcetrans">Online Reservations</a>
+<script type="text/javascript" src="https://book.mylimobiz.com/v4/widgets/widget-loader.js"></script>
+
+Implementation rules:
+1) Create env vars:
+- NEXT_PUBLIC_BOOKING_URL="https://book.mylimobiz.com/v4/dcetrans"
+- NEXT_PUBLIC_ORES_ALIAS="dcetrans"
+- NEXT_PUBLIC_SITE_URL (for canonical/sitemap) – set later in Vercel
+
+2) On /book:
+- Render the required anchor using the env vars:
+  <a href={BOOKING_URL} data-ores-widget="website" data-ores-alias={ORES_ALIAS}>Online Reservations</a>
+- Load the script ONLY on /book using Next.js next/script with strategy="afterInteractive":
+  https://book.mylimobiz.com/v4/widgets/widget-loader.js
+- Provide a visible fallback button: “Open booking in a new tab” linking to BOOKING_URL target=_blank
+- Display a small help note: “If the booking doesn’t load, use the button above.”
+- Ensure the widget script doesn’t load on any other route (performance)
+- Keep the /book page styled luxuriously.
+
+PERFORMANCE (ULTRA FAST)
+- Use next/image everywhere with proper sizes
+- Use modern formats (webp/avif) where possible
+- Lazy-load below the fold images
+- Preload hero image (only if it improves)
+- Avoid heavy JS; keep pages as server components where possible
+- Only /book needs client/script logic
+- Ensure Lighthouse performance score is a priority
+
+SEO (MUST BE VERY STRONG OUT OF THE BOX)
+1) Next metadata API for every page (unique titles + descriptions)
+2) Canonical tags using NEXT_PUBLIC_SITE_URL
+3) OG + Twitter meta tags
+4) JSON-LD:
+- LocalBusiness schema (global)
+- Service schema on each service page
+- BreadcrumbList on /services/[id]
+5) Generate sitemap.xml including:
+- /
+- /services
+- /fleet
+- /book
+- /contact
+- all /services/[id] pages
+6) robots.txt allows indexing
+7) Proper heading structure (one H1 per page)
+8) Internal linking across services/fleet/book/contact
+
+POLISH / QUALITY BAR
+- No broken links
+- No inert buttons
+- No placeholder “lorem ipsum”
+- Smooth hover states, nice spacing, premium typography
+- Mobile responsive and polished
+
+DEPLOYMENT (VERCEL)
+- Ensure npm run build works
+- Provide steps:
+  1) Push to GitHub
+  2) Import to Vercel
+  3) Set env vars (NEXT_PUBLIC_BOOKING_URL, NEXT_PUBLIC_ORES_ALIAS, NEXT_PUBLIC_SITE_URL)
+  4) Deploy
+  5) Verify /book loads widget and fallback works
+
+DELIVERABLES
+- Fully working Next.js project with all pages above
+- List of key files created
+- Where to edit service/fleet content
+- Any missing business info needed to finalise LocalBusiness schema (phone/address/service area)

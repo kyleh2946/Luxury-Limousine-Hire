@@ -1,0 +1,56 @@
+URGENT: FIX ALL BOOK NOW BUTTONS AND EMBED THE LIMOANYWHERE WIDGET INTERNALLY
+
+The current implementation is WRONG. Some "Book Now" buttons redirect users to external LimoAnywhere pages, and one even leads to a 500 Internal Server Error. This is unacceptable.
+
+We DO NOT want users leaving the Burbank Hire Cars website to book. All bookings must happen inside our website using an embedded booking widget.
+
+GOAL:
+Every "Book Now" / "Book a Ride" button must route to an INTERNAL booking page (/book) that contains the embedded LimoAnywhere widget.
+
+REQUIRED ACTIONS:
+
+1. Create or confirm an internal route/page:
+   Route: /book
+   Page title: Book Online
+
+2. On the /book page:
+   - Embed the LimoAnywhere booking widget using an iframe or approved embed method.
+   - The widget must be fully visible, responsive, centred, and usable on desktop and mobile.
+   - The widget must load reliably.
+
+3. Add loading reliability:
+   - Show a loading spinner or loading state while the widget loads.
+   - If the widget fails to load after 3 seconds, show this message:
+     "Booking form not loading? Please use the backup button below."
+   - Add a backup button labelled:
+     "Open Booking in New Tab"
+     This backup button should open the LimoAnywhere booking URL in a new tab ONLY as a fallback.
+
+4. Fix ALL booking buttons across the entire site:
+   Replace ANY external LimoAnywhere links with internal navigation to /book.
+
+   This includes:
+   - Navbar BOOK NOW button
+   - Hero section BOOK A RIDE button
+   - Fleet page BOOK NOW buttons
+   - Service page BOOK NOW buttons
+   - Homepage BOOK NOW buttons
+   - Contact section BOOK NOW buttons
+   - Any other booking CTA
+
+   NONE of these buttons should link externally anymore.
+
+5. Search the entire codebase and remove ALL external booking links.
+   Replace them with internal routing to /book.
+
+6. Performance optimisation:
+   - Only load the booking widget on the /book page
+   - Do not preload it globally
+   - Ensure fast loading and minimal render blocking
+
+7. After completing, confirm:
+   - Which files were modified
+   - That ALL booking buttons route internally to /book
+   - That NO external booking links remain
+
+DO NOT change design or styling yet. Fix functionality first.

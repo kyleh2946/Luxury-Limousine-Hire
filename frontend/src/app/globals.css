@@ -1,0 +1,59 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: 222 47% 11%;
+  --foreground: 40 20% 90%;
+  --card: 222 40% 14%;
+  --card-foreground: 40 20% 90%;
+  --popover: 222 40% 14%;
+  --popover-foreground: 40 20% 90%;
+  --primary: 42 78% 48%;
+  --primary-foreground: 222 47% 7%;
+  --secondary: 222 35% 18%;
+  --secondary-foreground: 40 20% 85%;
+  --muted: 222 30% 18%;
+  --muted-foreground: 220 15% 60%;
+  --accent: 222 30% 20%;
+  --accent-foreground: 40 20% 90%;
+  --destructive: 0 84% 60%;
+  --destructive-foreground: 0 0% 100%;
+  --border: 222 30% 20%;
+  --input: 222 30% 20%;
+  --ring: 42 78% 48%;
+  --gold: 42 78% 48%;
+  --gold-light: 42 70% 62%;
+  --gold-dark: 42 85% 38%;
+  --navy: 222 47% 11%;
+  --navy-light: 222 30% 22%;
+  --navy-dark: 222 47% 7%;
+  --radius: 0.5rem;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  .gold-gradient {
+    background: linear-gradient(135deg, hsl(42 78% 48%), hsl(42 85% 58%), hsl(42 78% 48%));
+  }
+  .navy-gradient {
+    background: linear-gradient(180deg, hsl(222 47% 11%), hsl(222 47% 15%));
+  }
+  .charcoal-gradient {
+    background: linear-gradient(180deg, hsl(222 35% 14%), hsl(222 40% 17%));
+  }
+}

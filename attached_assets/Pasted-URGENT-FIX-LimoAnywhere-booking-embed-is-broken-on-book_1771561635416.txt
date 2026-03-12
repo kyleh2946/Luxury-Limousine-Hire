@@ -1,0 +1,51 @@
+URGENT FIX: LimoAnywhere booking embed is broken on /book. Right now it either shows a LimoAnywhere 500 error inside the embed, or it loads forever. We must embed the booking widget properly INSIDE the Burbank site (no external redirect for normal use), and ALL “Book Now” buttons must continue routing internally to /book.
+
+Key discovery:
+- LimoAnywhere requires a company alias. /v4/ with NO alias returns a 404 that literally says the valid format is /v4/{companyAlias}.
+- The alias we must use is: dcetrans
+- The working booking URL format is: https://book.mylimobiz.com/v4/dcetrans (alias required). Do NOT use /v4/ by itself. Do NOT build URLs with random session segments like /(S(...))/. Only use the clean canonical alias URL.
+
+WHAT TO CHANGE (IMPLEMENT THESE EXACTLY):
+
+1) REMOVE the current iframe-based embed implementation on /book completely (it’s unreliable and is showing 500 / infinite loading).
+2) REPLACE it with the official LimoAnywhere widget-loader embed method using the exact snippet below, embedded directly on our /book page:
+
+Anchor:
+<a href="https://book.mylimobiz.com/v4/dcetrans" data-ores-widget="website" data-ores-alias="dcetrans">Online Reservations</a>
+
+Script (must load on the /book page):
+<script type="text/javascript" src="https://book.mylimobiz.com/v4/widgets/widget-loader.js"></script>
+
+Important implementation details in a React/Next site:
+- The script must be loaded only on the /book page and only once (avoid duplicate loads on route changes).
+- Load it AFTER the page renders (equivalent of “afterInteractive”).
+- The anchor must remain in the DOM when the script runs (don’t hide/remove it before widget initialises).
+- Do NOT intercept the anchor click in a way that prevents the widget from initialising. If you need a fallback, add a separate button for fallback (see below), but don’t break the widget initialisation.
+
+3) MAKE THE EMBED LOOK NATIVE:
+- Keep our existing Book Online hero/heading.
+- Place the widget embed inside our existing styled container/card area.
+- Ensure it is responsive and has enough height on desktop and mobile (no tiny iframe area / no overflow hidden).
+- Remove the current “loading forever” UI. The widget should display its own UI.
+
+4) FALLBACK (REQUIRED):
+Below the embedded widget area, add a clear fallback button that opens the booking in a new tab using the canonical alias URL:
+https://book.mylimobiz.com/v4/dcetrans
+Label: “Open booking in a new tab”
+This is a backup only.
+
+5) VERIFY ROUTING:
+- Confirm again that ALL “Book Now” buttons across the site route internally to /book (navbar top-right, homepage hero/middle CTA, footer CTA, etc.).
+- There must be ZERO other LimoAnywhere links anywhere else on the site besides the /book page fallback button.
+
+6) ADD BASIC DEBUG LOGGING (developer-only):
+- When /book mounts, log that the widget loader is being injected and whether it’s already present.
+- Log if the script fails to load.
+
+END RESULT:
+- Visiting /book shows the booking widget embedded inside the Burbank site (not an external redirect).
+- No 500 error page inside the embed (because we are using the correct canonical alias URL).
+- No infinite loading state.
+- Fallback “open in new tab” works.
+
+Implement now, then re-test /book in an incognito window.

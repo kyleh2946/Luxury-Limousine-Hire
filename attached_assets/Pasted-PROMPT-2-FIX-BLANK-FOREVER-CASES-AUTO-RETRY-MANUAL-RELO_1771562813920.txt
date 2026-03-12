@@ -1,0 +1,51 @@
+PROMPT 2 — FIX “BLANK FOREVER” CASES (AUTO-RETRY + MANUAL RELOAD + SMART FALLBACK)
+
+Goal: Sometimes /book shows a blank box forever (no booking UI). Build a robust embed wrapper that:
+- Always tries to load the iframe
+- Auto-retries if it doesn’t load within a timeout
+- Never leaves the user stuck
+- Still keeps booking “through the Burbank site” by default
+
+Implement a BookingEmbed component used on /book:
+
+A) Component behaviour (must be deterministic)
+1) Show a loader + “Loading booking system…” immediately.
+2) Start a timer: 12 seconds.
+3) If the iframe onLoad fires before 12 seconds:
+   - Hide the spinner (booking UI should be visible).
+   - Still show a small helper link below: “Having trouble? Open in new tab” (this is backup, not the main path).
+
+4) If onLoad does NOT fire by 12 seconds:
+   - Automatically retry ONCE by forcing the iframe to remount:
+     - Increment an internal `attempt` state (e.g., attempt 1 -> 2)
+     - Re-render the iframe with a new React key so it fully reloads
+     - When retrying, add a cache-buster query param like `?t=<timestamp>` ONLY for the retry request
+       Example: https://book.mylimobiz.com/v4/dcetrans?t=1700000000000
+     - Keep the base URL the same (still /v4/dcetrans).
+
+5) After the retry, start another timer: 15 seconds.
+6) If still no onLoad after the retry window:
+   - Replace the loader with a clear message:
+     “Booking is taking longer than usual.”
+   - Show two buttons:
+     - “Try loading again” (forces another remount + new cache-buster)
+     - “Open booking in new tab” (opens https://book.mylimobiz.com/v4/dcetrans in a new tab)
+   - Keep the iframe area visible below OR hide it—either is fine, but do not leave a blank box with no explanation.
+
+B) UI requirements
+- Keep the styling consistent with Burbank (dark navy + gold accents).
+- The loader state should occupy the exact same space as the iframe to avoid layout shift.
+- The fallback message must be obvious and centred.
+- Add a small note: “If this persists, it may be a LimoAnywhere outage.”
+
+C) Implementation details
+- Do NOT attempt to read iframe contents (cross-origin).
+- Use onLoad + timeouts only.
+- Make sure the iframe has a title attribute for accessibility.
+
+D) Verification checklist (must pass)
+- Click Book Now (top right) -> /book -> loader appears instantly -> booking loads OR fallback appears with retry + new tab options.
+- Click Book Now (homepage middle / footer / anywhere) -> same.
+- On a slow connection, user never gets stuck on a blank panel with no actions.
+
+After implementing, update any existing /book code to use this BookingEmbed component and remove any old widget-loader script usage if it still exists anywhere.

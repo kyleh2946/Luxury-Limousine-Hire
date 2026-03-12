@@ -1,0 +1,161 @@
+Goal: Improve design consistency, luxury feel, and conversion reliability. Fix booking reliability, make all interactive elements behave correctly, and update the colour system to remove harsh white.
+
+1) Replace hero image (Home page top)
+
+Replace the current Bentley hero with a Mercedes Sprinter luxury van hero image.
+
+The image should look top-of-the-line, executive, hotel pickup:
+
+A luxury Mercedes Sprinter van (VIP/executive spec)
+
+Parked outside a high-end hotel entrance
+
+A chauffeur/driver in suit is stepping out or opening the passenger door
+
+Night-time or evening lighting is fine (premium city vibe), but keep it clean and classy.
+
+Keep the same layout: headline, subheading, 2 CTAs.
+
+2) Make the header/nav premium + optionally transparent
+
+Change the header to be transparent over the hero (premium look).
+
+Add a subtle blur/glass effect and a faint border/gradient so text stays readable.
+
+On scroll (after hero), header transitions to a solid navy background for clarity.
+
+Keep “Book Now” as the primary CTA in the header.
+
+3) Booking reliability (LimoAnywhere) — make every CTA work + load fast
+
+This is the highest priority.
+
+Define a single source of truth for booking:
+
+One booking URL (LimoAnywhere hosted booking link)
+
+One booking section/page where the embed lives (Book Online page)
+
+Update every button/link that should book to always do one of these:
+
+Navigate to the Book Online page and auto-scroll to the embed section, OR
+
+Open the booking link in a new tab (fastest + most reliable)
+
+Ensure these CTAs are wired correctly across the whole site:
+
+Header “Book Now”
+
+Home hero “Book a Ride”
+
+Any “Book Now” button on Fleet cards
+
+Any CTA on Service pages (“Book Now”, “Enquire”, “Ready to Book?”)
+
+Footer / bottom-of-page CTAs
+
+Improve perceived performance:
+
+Lazy-load the booking embed until the user reaches the Book Online section
+
+Show a loading state/skeleton before the embed appears
+
+Add a clear fallback button: “Open booking in new tab” if embed fails or is blocked
+
+4) Services cards — make the whole card clickable
+
+On Home page “Our Services” section and Services page grid:
+
+Make the entire card clickable (not only “Learn more” text)
+
+Maintain accessibility: cursor pointer, hover state, focus outline
+
+Clicking anywhere on the card should navigate to that service detail page.
+
+5) Fleet page — align CTAs perfectly
+
+Standardise all fleet cards so that:
+
+Titles, capacity/luggage, description, features chips all align neatly
+
+The bottom CTA row is pinned to the bottom of each card
+
+“Book Now” and “Enquire” buttons line up horizontally across cards
+
+Ensure consistent spacing and equal card heights in the grid.
+
+6) Add a “Book Now” CTA near the enquiry form (Home page bottom)
+
+Near the enquiry form section:
+
+Add a prominent “Book Online” panel beside or beneath the form:
+
+Short text: “Know what you need? Book online in seconds.”
+
+Button: “Book Now” (primary)
+
+Optional secondary: “View Fleet”
+
+This button must follow the same booking reliability rules (section 3).
+
+7) Create an “About Us” page (if missing)
+
+Add a new page: About Us
+
+Keep it premium, short, and credibility-first:
+
+Hero heading: “About Burbank Hire Cars”
+
+Key trust points: Licensed & insured, experienced chauffeurs, service area, availability, fleet quality
+
+A “Why choose us” block (3–5 bullets)
+
+A strong CTA at the end: “Book Now” + “Contact Us”
+
+Add it to the navigation menu.
+
+8) Fix colour scheme to remove harsh white and feel luxury
+
+Keep the navy + gold brand direction, but remove pure white sections.
+
+Replace white backgrounds with one of these:
+
+Option A (preferred): Dark luxury theme throughout using layered navy/charcoal panels
+
+Option B: Use a soft warm off-white / bone instead of pure white for readability (no bright white)
+
+Create a consistent palette and apply site-wide:
+
+Background (primary): deep navy
+
+Background (section alternate): charcoal/navy gradient
+
+Card surfaces: slightly lighter navy panel
+
+Text: soft off-white (not pure white)
+
+Accent: gold for buttons/dividers/icons
+
+Update testimonials and any white blocks to match the new system.
+
+Reduce eye strain:
+
+Avoid stark white text on pure black; use softer text colour
+
+Ensure body text contrast is readable but not harsh
+
+9) QA pass (must do)
+
+Click-test every CTA:
+
+All booking buttons work and route correctly
+
+All service cards clickable
+
+Fleet buttons aligned and functional
+
+Test embed fallback:
+
+If embed fails, the “Open booking in new tab” still works instantly.
+
+Deliverable: Implement these changes across Home, Services, Fleet, Book Online, and add About Us. Keep everything consistent, premium, and conversion-focused.

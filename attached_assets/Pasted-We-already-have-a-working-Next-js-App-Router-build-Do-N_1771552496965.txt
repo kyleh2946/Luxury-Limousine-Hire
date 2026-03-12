@@ -1,0 +1,114 @@
+We already have a working Next.js (App Router) build. Do NOT rebuild the project from scratch. Keep the existing routing, SEO framework, and booking integration. Your task is to redo the VISUAL DESIGN and BRANDING so the site looks ultra high-end, luxurious, and premium—targeting executives, CEOs, wedding clients, corporate accounts, and graduates.
+
+CRITICAL BRAND FIX
+- The business name is NOT “DCE Trans”.
+- The correct name is: “Burbank Hire Cars”.
+Update this everywhere:
+- Logo text
+- Metadata titles
+- JSON-LD business name
+- Header/footer
+- Any copy mentioning the old name
+- Any file names or constants if they include the old name
+
+VISUAL DIRECTION (MUST MATCH THE OLD PROJECT SCREENSHOTS)
+I am attaching reference screenshots from the OLD project. Use them as the primary design target. The new site must closely match this visual style:
+- Cinematic luxury hero section with a high-quality background image (executive/luxury car + city lights vibe)
+- Dark navy / charcoal palette with gold accents (premium, understated)
+- Large elegant serif headlines, refined spacing, minimal clutter
+- Strong contrast and high readability
+- Subtle gradients, soft glow highlights, tasteful shadows
+- Buttons should feel premium (gold fill for primary, outlined gold for secondary)
+- Section spacing should feel expensive: generous whitespace, strong rhythm
+- Service cards should match the luxury style in the old site (not generic tiles)
+
+IMPORTANT: The new build currently has a very empty/flat hero background. Replace it with a premium hero image treatment similar to the old project.
+
+NAV + CTA REQUIREMENTS
+- Navbar must show:
+  - Burbank Hire Cars (logo/wordmark)
+  - Home, Services, Fleet, Contact
+  - Primary CTA button: Book Now (gold)
+  - Secondary CTA button: Enquire (outline)
+- All “Book Now” buttons route to /book
+- All “Enquire” buttons route to /contact
+- No dead buttons, no placeholder links
+
+HOMEPAGE LAYOUT (MATCH OLD PROJECT FEEL)
+Update the homepage sections to match the old project’s premium structure:
+1) HERO (most important)
+   - Full-screen/near full-screen hero with background image and dark overlay
+   - Headline: premium/serif, similar scale to old screenshots
+   - Supporting text: short, executive tone
+   - CTAs: Book Now + View Fleet (and/or Enquire) as per old design
+
+2) “Why Choose Burbank Hire Cars”
+   - Keep the four pillars (Licensed & Insured, Professional Chauffeurs, Always Punctual, Premium Vehicles)
+   - Make the styling match the luxury theme (icons, spacing, typography)
+
+3) “Our Services”
+   - Use the same six services
+   - Cards must look like the old project: premium panel cards, subtle borders, gold icon circles
+   - Each card must have Learn More and Book Now
+
+4) “Our Fleet” preview
+   - Add a premium image + short copy block like the old project
+   - Show 3 vehicle cards (with Book Now)
+   - Include “View Full Fleet”
+
+5) Testimonials
+   - Make them feel credible and premium
+   - Keep the elegant dark section style like old project
+
+6) FAQ
+   - Keep accordion, but style it to match the premium theme (not plain white)
+
+7) Contact/Enquiry section
+   - Keep a premium styled form similar to old project
+   - Ensure form looks luxurious, not generic
+
+DESIGN SYSTEM / TYPOGRAPHY
+- Use next/font for a premium serif headline font + clean sans body font
+  Example pairing (choose similar-quality alternatives if needed):
+  - Serif: Playfair Display / Cormorant Garamond / Libre Baskerville
+  - Sans: Inter / Manrope
+- Ensure font sizes, line heights, and letter spacing feel high-end
+- No tacky animations. Only subtle transitions/hover states.
+
+IMAGES / PERFORMANCE
+- Use next/image everywhere
+- Add at least one high-quality hero image and one fleet showcase image (can be placeholders from a royalty-free source or local placeholders)
+- Ensure images are optimised:
+  - correct sizes
+  - lazy load below fold
+  - avoid layout shift
+- Keep Lighthouse performance as high as possible. Do not add heavy libraries.
+
+SEO MUST REMAIN STRONG
+Do not break:
+- metadata per page
+- canonical URLs
+- sitemap generation
+- robots.txt
+- JSON-LD schema
+Update JSON-LD to use “Burbank Hire Cars”.
+
+BOOKING PAGE MUST REMAIN CORRECT (DO NOT BREAK)
+On /book:
+- Keep the LimoAnywhere widget integration exactly as implemented:
+  - anchor tag with data-ores-widget="website" and data-ores-alias from env
+  - script loaded with next/script afterInteractive
+- Keep fallback link button to booking URL
+
+CONTENT TONE (IMPORTANT)
+Rewrite any overly generic copy so it sounds premium and confident.
+Audience: executives, corporate clients, weddings, formals, high-end events.
+Tone: refined, concise, confident, professional.
+No cheesy lines, no hype.
+
+DELIVERABLES
+1) Update branding to “Burbank Hire Cars” everywhere
+2) Update visuals to closely match the old project screenshots
+3) Ensure all CTAs work: Book Now → /book, Enquire → /contact
+4) Keep performance + SEO excellent
+5) List the key files you changed

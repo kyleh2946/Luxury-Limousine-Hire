@@ -1,0 +1,46 @@
+PROMPT 1 — FIX BOOKING NOW (URGENT, MUST WORK)
+
+You are working on the Burbank Hire Cars site.
+
+The booking must happen INSIDE the Burbank website using the embedded Limo Anywhere booking widget (iframe embed). We do NOT want any “Book Now” buttons sending users to external booking pages or error pages.
+
+PROBLEM:
+- The “Book Now” button in the middle of the homepage routes to our /book page, but the embedded widget shows “Limo Anywhere Internal Server Error 500”.
+- The “Book Now” button (top right in the nav) goes to the booking page but it loads forever and never renders the widget.
+- Some buttons across the site link to inconsistent or broken booking URLs.
+
+GOAL:
+- Every “Book Now” action across the site must route to ONE internal page: /book
+- /book must embed the correct Limo Anywhere booking widget reliably and fast.
+- If the embed fails (blocked, slow, error), show a clear fallback button to open the booking in a new tab, but only as a backup — the default experience is embedded booking on our site.
+
+WHAT TO IMPLEMENT (DO THIS NOW):
+1) Create a single source of truth for the booking embed URL:
+   - Add an environment variable: LIMO_ANYWHERE_EMBED_URL
+   - Use ONLY this value for the iframe src
+   - Remove any hard-coded Limo Anywhere URLs scattered across components/pages.
+   - Ensure the URL used is the correct EMBED/WIDGET URL (not an error route like /Error/HttpError500 and not a deep link that intermittently 500s).
+   - The iframe src must be https.
+
+2) Fix routing:
+   - Make sure every “Book Now” button/link (nav top-right, hero CTA, footer CTA, fleet cards, service CTAs, etc.) links to /book (internal route) and NEVER directly to the external booking site.
+
+3) Fix the /book page embed implementation:
+   - Use a responsive iframe container with a stable min-height (e.g. 900px desktop, larger on mobile if needed).
+   - Add a proper loading state.
+   - Add iframe onLoad handler to stop the loader when the iframe finishes loading.
+   - Add a failure timeout: if iframe has not loaded within 8–10 seconds, stop the infinite spinner and show an “Open booking in new tab” backup button plus a short message (“If the booking form doesn’t load, use the button below.”).
+   - Add onError handling as well (where possible) to show the fallback UI.
+
+4) Performance:
+   - Preconnect/dns-prefetch to the booking domain used in LIMO_ANYWHERE_EMBED_URL
+   - Ensure the booking page does not block rendering (no heavy images/scripts before the iframe)
+   - Ensure the iframe loads immediately (not behind a click or delayed hydration).
+
+5) IMPORTANT DEBUG CHECK (DO THIS IN CODE / COMMENTS):
+   - If the embed is blocked by X-Frame-Options / CSP from Limo Anywhere, embedding will never work. Add a note in code comments and console warnings if the iframe fails to load after the timeout:
+     “If this keeps happening, the booking provider may be blocking embedding for this domain; confirm domain allowlisting or embed settings inside Limo Anywhere.”
+
+DELIVERABLE:
+- After changes, clicking any “Book Now” button anywhere on the site always takes you to /book and the embedded widget loads (or shows the fallback after 8–10 seconds instead of spinning forever).
+- Remove any current behaviour where the middle homepage button goes to an external booking page or to an error page.
