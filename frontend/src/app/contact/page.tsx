@@ -21,8 +21,8 @@ const contactDetails = [
   {
     icon: Phone,
     label: "Phone",
-    value: "(02) 4390 5043",
-    href: "tel:+61243905043",
+    value: "0401 222 626",
+    href: "tel:+61401222626",
   },
   {
     icon: Mail,

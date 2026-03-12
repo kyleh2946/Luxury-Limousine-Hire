@@ -31,7 +31,7 @@ const trustFeatures = [
 const faqs = [
   {
     question: "How do I book a vehicle?",
-    answer: "You can book online through our booking system, submit an enquiry through our contact form, or call us directly on (02) 4390 5043.",
+    answer: "You can book online through our booking system, submit an enquiry through our contact form, or call us directly on 0401 222 626.",
   },
   {
     question: "What areas do you service?",
@@ -315,8 +315,8 @@ export default function HomePage() {
                   <div className="flex flex-col sm:flex-row gap-6 mb-10">
                     <div>
                       <p className="text-gold text-xs tracking-[0.2em] uppercase font-medium mb-1">Phone</p>
-                      <a href="tel:+61243905043" className="text-white text-lg font-medium hover:text-gold transition-colors">
-                        (02) 4390 5043
+                      <a href="tel:+61401222626" className="text-white text-lg font-medium hover:text-gold transition-colors">
+                        0401 222 626
                       </a>
                     </div>
                     <div>

@@ -88,7 +88,7 @@ export default function RootLayout({
               description:
                 "Premium chauffeur-driven luxury car hire on the Central Coast, New South Wales. Stretch limousines, people movers, and car transfers for weddings, airports, parties, corporate events, and formals.",
               url: siteUrl,
-              telephone: "+61243905043",
+              telephone: "+61401222626",
               email: "bookings@burbankhirecars.com.au",
               address: {
                 "@type": "PostalAddress",
